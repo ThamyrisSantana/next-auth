@@ -3,13 +3,13 @@ import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
+const Home = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { isAuthenticated, sigin } = useContext(AuthContext);
+  const { isAuthenticated, signIn } = useContext(AuthContext);
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event?.preventDefault();
 
     const data = {
@@ -17,22 +17,22 @@ const Home: NextPage = () => {
       password,
     };
 
-    sigin(data);
+    await signIn(data);
   }
 
   return (
     <form onSubmit={handleSubmit} className={styles.main}>
       <input
-        className={styles.input}
         type="email"
-        placeholder="E-mail"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        className={styles.input}
+        placeholder="E-mail"
       />
       <input
         className={styles.input}
-        type="passwor"
-        placeholder="Passwor"
+        placeholder="Password"
+        type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
